@@ -1,11 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
-{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Git_Fundamentos</title>
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     
     <!-- Carga de Bootstrap CSS (solo una vez) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,9 +32,16 @@
             overflow: hidden; /* Asegura que la imagen se mantenga dentro del borde */
         }
         .carousel-item img {
-            max-height: 500px; /* Altura máxima para que no sea demasiado grande */
-            object-fit: cover; /* Asegura que la imagen cubra el área */
-        }
+                    
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+            object-fit: cover;
+        } 
+             /* Asegura que la imagen cubra el área */
+    
         /* Estilo para el texto en los contenedores de contenido */
         .tab-pane {
             background-color: #ffffff;
@@ -45,7 +53,113 @@
         .nav-pills .nav-link.active {
             background-color: #dc3545 !important; /* Color de peligro (rojo/naranja) */
         }
-    </style>
+
+      
+
+        /* Asegurar que las flechas del carrusel se muestren encima de las imágenes
+           y sean visibles en todas las diapositivas */
+        #carouselExampleIndicators .carousel-control-prev,
+        #carouselExampleIndicators .carousel-control-next {
+            width: 6%;
+            z-index: 9999; /* encima de la imagen */
+            opacity: 0.95;
+        }   
+
+        /* Hacer que los iconos sean más visibles sobre imágenes claras/oscuras */
+        #carouselExampleIndicators .carousel-control-prev-icon,
+        #carouselExampleIndicators .carousel-control-next-icon {
+            background-color: rgba(0,0,0,0.35);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 1.6rem 1.6rem;
+            border-radius: 50%;
+        }
+
+        /* --- CARRUSEL VERTICAL --- */
+
+        .vertical-carousel {
+            position: relative;
+            overflow: hidden;
+            height: 400px; /* Ajusta el alto a lo que necesites */
+        }
+
+        .vertical-carousel .carousel-inner {
+            height: 100%;
+        }
+
+        .vertical-carousel .carousel-item {
+            height: 100%;
+            transition: transform 0.8s ease-in-out; /* Transición suave */
+        }
+
+        /* Movimiento vertical */
+        .vertical-carousel .carousel-item-next.carousel-item-start,
+        .vertical-carousel .carousel-item-prev.carousel-item-end {
+            transform: translateY(100%);
+        }
+
+        .vertical-carousel .carousel-item-active,
+        .vertical-carousel .carousel-item-next,
+        .vertical-carousel .carousel-item-prev {
+            display: block;
+        }
+
+        .vertical-carousel .carousel-item-end,
+        .vertical-carousel .carousel-item-start {
+            transform: translateY(-100%);
+        }
+
+        /* Flechas verticales */
+        .vertical-carousel .carousel-control-prev,
+        .vertical-carousel .carousel-control-next {
+            width: auto;
+            height: auto;
+            left: 0;
+            right: 0;
+        }
+
+        .vertical-carousel .carousel-control-prev {
+            top: 0;
+        }
+
+        .vertical-carousel .carousel-control-next {
+            bottom: 0;
+        }
+
+        /* Indicadores a la derecha */
+        .vertical-carousel .carousel-indicators {
+            right: auto;
+            left: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            flex-direction: column;
+        }
+
+        .vertical-carousel .carousel-indicators button {
+            width: auto;
+            height: auto;
+            max-width: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+</style>
+
+
+
 </head>
 <body>
 
@@ -67,12 +181,8 @@
     <div class="page-container mt-8">
         <!-- Nav pills -->
         <ul class="nav nav-pills" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="pill" href="#home">Documentos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="pill" href="#menu1">Video</a>
-            </li>
+            
+            
             <li class="nav-item">
                 <!-- Hacemos esta la pestaña activa por defecto para mostrar el carrusel -->
                 <a class="nav-link active" data-bs-toggle="pill" href="#menu2">Diapositivas</a>
@@ -81,145 +191,281 @@
                 <a class="nav-link" data-bs-toggle="pill" href="#menu3">Manual</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="pill" href="#menu1">Video</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="pill" href="#menu5">Infografia</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="pill" href="#menu4">Integrantes</a>
             </li>
         </ul>
-
+    </div>
         <!-- Tab panes (Contenido de las pestañas) -->
         <div class="tab-content mt-4">
-            <!-- Pestaña de Documentos -->
-            <div id="home" class="container tab-pane fade"><br>
-                <h3>GIT Fundamentos locales </h3>
-                <p>Aquí tenemos un documento para explicar los fundamentos de Git.</p>
+           
+
+            <div id="menu5" class="container tab-pane fade"><br>
+                
+                <img src="{% static 'imagenes/infografia.png' %}">
+            
+
+               
             </div>
+            <div id="menu2" class="container tab-pane active"><br>
+            <h3 class="text-2xl font-semibold mb-4">Diapositivas de la Exposición</h3>
+            <p class="mb-4">Desliza o usa las flechas para ver todas las diapositivas sobre los Fundamentos Locales de Git.</p>
+
+            <div id="carouselExampleIndicators" class="carousel slide shadow-xl" data-bs-ride="carousel">
+                
+            
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 8"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 9"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 10"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 11"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 12"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 13"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 14"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 15"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 16"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="16" aria-label="Slide 17"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="17" aria-label="Slide 0"></button>
+                </div>
+
+                
+                <div class="carousel-inner rounded-lg">
+                
+                    <div class="carousel-item active">
+                        
+                        <img src="{% static 'imagenes/1.png' %}" class="d-block w-full rounded-lg" alt="Diapositiva 1: Introducción a Git" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/3498db/ffffff?text=Error+al+cargar+Diapositiva+1'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <!-- Diapositiva 2 -->
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/2.png' %}" class="d-block w-full rounded-lg" alt="Diapositiva 2: Comandos Fundamentales" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/2ecc71/ffffff?text=Error+al+cargar+Diapositiva+2'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <!-- Diapositiva 3 -->
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/3.png'%}" class="d-block w-auto mx-auto" alt="Diapositiva 3: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/4.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 4: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/5.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 5: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/6.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 6: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/7.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 7: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/8.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 8: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/9.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 9: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/10.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 10: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/11.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 11: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/12.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 12: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/13.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 13: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/14.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 14: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/15.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 15: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/16.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 16: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        
+                        <img src="{% static 'imagenes/17.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 17: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
+                        <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
+                            
+                        </div>
+                    </div>
+
+                    
+                </div>
+
+                <!-- Flechas-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+            
 
             <div id="menu1" class="container tab-pane fade"><br>
-                <h3>Video informativo</h3>
-                <p>Aquí está el video que realizaron mis compañeritos.</p>
-
+                <P color:blue; style="font-size:50px;">"VIDEO INFORMATIVO"</P>
                 
 
-
-
-
-            </div>
-            
-            <div id="menu2" class="container tab-pane active"><br>
-                <h3 class="text-2xl font-semibold mb-4">Diapositivas de la Exposición</h3>
-                <p class="mb-4">Desliza o usa las flechas para ver todas las diapositivas sobre los Fundamentos Locales de Git.</p>
-
-                <div id="carouselExampleIndicators" class="carousel slide shadow-xl" data-bs-ride="carousel">
-                    
-                
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-
-                    
-                    <div class="carousel-inner rounded-lg">
-                    
-                        <div class="carousel-item active">
-                           
-                            <img src="{% static 'imagenes/1.png'%}" class="d-block w-full rounded-lg" alt="Diapositiva 1: Introducción a Git" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/3498db/ffffff?text=Error+al+cargar+Diapositiva+1'">
-                            <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
-                                <h5 class="text-xl font-bold">Conceptos Clave de Git</h5>
-                            </div>
-                        </div>
-
-                        <!-- Diapositiva 2 -->
-                        <div class="carousel-item">
-                            
-                            <img src="https://placehold.co/1000x400/2ecc71/ffffff?text=DIAPOSITIVA+2:+COMANDOS+FUNDAMENTALES" class="d-block w-full rounded-lg" alt="Diapositiva 2: Comandos Fundamentales" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/2ecc71/ffffff?text=Error+al+cargar+Diapositiva+2'">
-                            <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
-                                <h5 class="text-xl font-bold">git init, add y commit</h5>
-                            </div>
-                        </div>
-
-                        <!-- Diapositiva 3 -->
-                        <div class="carousel-item">
-                           
-                            <img src="https://placehold.co/1000x400/f39c12/ffffff?text=DIAPOSITIVA+3:+ESTADOS+DEL+ARCHIVO" class="d-block w-full rounded-lg" alt="Diapositiva 3: Estados del Archivo" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/f39c12/ffffff?text=Error+al+cargar+Diapositiva+3'">
-                            <div class="carousel-caption d-none d-md-block bg-black bg-opacity-50 rounded-lg p-2 mb-2">
-                                <h5 class="text-xl font-bold">Área de Staging y Repositorio</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Flechas-->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Manual -->
-            <div id="menu3" class="container tab-pane fade"><br>
-                <h3 class="text-2xl font-semibold mb-4">Manual de Uso</h3>
-                <p>Aquí te mostramos cómo se usa.</p>
-                <div class="accordion" id="accordionExample">
-                    <div class="card shadow-sm mb-2">
-                        <div class="card-header bg-light">
-                            <a class="btn w-full text-start" data-bs-toggle="collapse" href="#collapseOne">
-                                <span class="font-medium text-gray-700">Paso 1: Instalación de Git</span>
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="collapse show" data-bs-parent="#accordionExample">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm mb-2">
-                        <div class="card-header bg-light">
-                            <a class="collapsed btn w-full text-start" data-bs-toggle="collapse" href="#collapseTwo">
-                                <span class="font-medium text-gray-700">Paso 2: Inicializar Repositorio</span>
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse" data-bs-parent="#accordionExample">
-                             <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm mb-2">
-                        <div class="card-header bg-light">
-                            <a class="collapsed btn w-full text-start" data-bs-toggle="collapse" href="#collapseThree">
-                                <span class="font-medium text-gray-700">Paso 3: Realizar un Commit</span>
-                            </a>
-                        </div>
-                        <div id="collapseThree" class="collapse" data-bs-parent="#accordionExample">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </div>
-                        </div>
-                    </div>
+                <div class="ratio ratio-16x9">
+                    <video controls>
+                        <source src="{% static 'imagenes/video.mp4' %}" type="video/mp4">
+                        Tu navegador no soporta el video.
+                    </video>
                 </div>
             </div>
 
-            <!-- Pestaña de Integrantes -->
+        </div>
+
+
             <div id="menu4" class="container tab-pane fade"><br>
                 <h3 class="text-2xl font-semibold mb-4">INTEGRANTES DEL EQUIPO:</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <div class="p-3 bg-indigo-50 text-indigo-800 rounded-lg shadow-sm font-medium">-Ángela Jazmin Gonzalez Hernandez</div>
+                    <div class="p-3 bg-indigo-50 text-indigo-800 rounded-lg shadow-sm font-medium">Ángela Jazmin Gonzalez Hernandez</div>
                     <div class="p-3 bg-indigo-50 text-indigo-800 rounded-lg shadow-sm font-medium">Brenda Guevara Mendoza</div>
                     <div class="p-3 bg-indigo-50 text-indigo-800 rounded-lg shadow-sm font-medium">Pamela Elizabeth Morales Cortez</div>
-                    <div class="p-3 bg-indigo-50 text-indigo-800 rounded-lg shadow-sm font-medium">Diana Michell</div>
+                    
                     <div class="p-3 bg-indigo-50 text-indigo-800 rounded-lg shadow-sm font-medium">Francisco Eduardo de la Cruz Vargasr</div>
                     <div class="p-3 bg-indigo-50 text-indigo-800 rounded-lg shadow-sm font-medium">José Luis Hernandez García</div>
                 </div>
             </div>
         </div>
+            <div id="menu3" class="container tab-pane fade"><br>
+                    <h2 class="text-2xl font-semibold mb-4">Manual de Uso</h2>
+                    <p>Aquí te mostramos cómo se usa.</p>
+                    
+                    <img src="{% static 'imagenes/1m.png' %}">
+                    <img src="{% static 'imagenes/2m.png' %}">
+                    <img src="{% static 'imagenes/3m.png' %}">
+                    <img src="{% static 'imagenes/4m.png' %}">
+                    <img src="{% static 'imagenes/5m.png' %}">
+                    <img src="{% static 'imagenes/6m.png' %}">
+                    <img src="{% static 'imagenes/7m.png' %}">
+                    <img src="{% static 'imagenes/8m.png' %}">
+            </div>
+                            
+        </div>
+            
     </div>
     
     <!-- Carga de Bootstrap JS (solo una vez) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+            document.addEventListener('click', function(e){
+                const el = e.target.closest('.yt-lite');
+                if (!el) return;
+                const id = el.dataset.id;
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + id + '?autoplay=1');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                el.innerHTML = '';
+                el.appendChild(iframe);
+            });
+    </script>
+    <script>
+            function loadVideo(container) {
+                container.querySelector('img').style.display = 'none';
+                container.querySelector('iframe').style.display = 'block';
+            }
+    </script>
 </body>
 </html>
